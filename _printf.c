@@ -1,74 +1,76 @@
-#include <stddef.h>
-#include "main.h"
 #include <stdarg.h>
-
+#include "main.h"
+#include <stddef.h>
 /**
- * _printf - produces output according to a format
- * @format: a character string containing zero or more directives
- *
- * Return: the number of characters printed (excluding the null byte used to
- * end output to strings)
+ * _printf - prints a formatted string to stdout
+ * @format: the format string
+ * Return: the number of characters printed, or (-1) on failure
  */
 int _printf(const char *format, ...)
 {
-    int count = 0;
-    va_list args;
-    int (*printer)(va_list);
+	va_list args;
+	int i, count = 0;
 
-    va_start(args, format);
+	if (format == NULL)
+		return (-1);
 
-    while (*format)
-    {
-        if (*format == '%')
-        {
-            format++;
-            printer = NULL;
+	va_start(args, format);
 
-            if (*format == '\0')
-                break;
+	for (i = 0; format[i] != '\0'; i++)
+	{
+		if (format[i] == '%')
+		{
+			i++;
+			if (format[i] == '\0')
+				return (-1);
+			else if (format[i] == ' ')
+				return (-1);
+			else if (format[i] == '\\')
+				return (-1);
 
-            if (*format == '%')
-                printer = &print_percent;
-            else if (*format == 'c')
-                printer = &print_char;
-            else if (*format == 's')
-                printer = &print_string;
-            else if (*format == 'd' || *format == 'i')
-                printer = &print_int;
-            else if (*format == 'b')
-                printer = &print_binary;
-            else if (*format == 'u')
-                printer = &print_unsigned_int;
-            else if (*format == 'o')
-                printer = &print_octal;
-            else if (*format == 'x' || *format == 'X')
-                printer = &print_hex;
-            else if (*format == 'p')
-                printer = &print_pointer;
-            else if (*format == 'r')
-                printer = &print_reversed;
-            else if (*format == 'S')
-                printer = &print_non_printable;
+			switch (format[i])
+			{
+				case 'c':
+					count += print_char(args);
+					break;
+				case 's':
+					count += print_string(args);
+					break;
+				case 'd':
+				case 'i':
+					count += print_int(args);
+					break;
+				case 'u':
+					count += print_unsigned_int(args);
+					break;
+				case 'o':
+					count += print_octal(args);
+					break;
+				case 'x':
+				case 'X':
+					count += print_hex(args);
+					break;
+				case 'p':
+					count += print_pointer(args);
+					break;
+				case '%':
+					count += print_percent(args);
+					break;
+				default:
+					_putchar('%');
+					_putchar(format[i]);
+					count += 2;
+					break;
+			}
+		}
+		else
+		{
+			_putchar(format[i]);
+			count++;
+		}
+	}
 
-            if (printer != NULL)
-                count += printer(args);
-            else
-            {
-                _putchar('%');
-                _putchar(*format);
-                count += 2;
-            }
-        }
-        else
-        {
-            _putchar(*format);
-            count++;
-        }
+	va_end(args);
 
-        format++;
-    }
-
-    va_end(args);
-
-    return (count);
+	return (count);
 }
