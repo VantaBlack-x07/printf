@@ -29,6 +29,18 @@ int print_int(va_list arg)
 	return (count);
 }
 
+
+/**
+ * print_decimal - prints a decimal integer
+ * @arg: the argument containing the integer to print
+ * Return: the number of characters printed
+ */
+int print_decimal(va_list arg)
+{
+	return print_int(arg);
+}
+
+
 /**
  * print_unsigned_int - prints an unsigned integer
  * @arg: the argument containing the unsigned integer to print

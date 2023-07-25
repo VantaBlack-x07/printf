@@ -38,7 +38,7 @@ int _printf(const char *format, ...)
 					break;
 				case 'd':
 				case 'i':
-					count += print_int(args);
+					count += print_decimal(args);
 					break;
 				case 'u':
 					count += print_unsigned_int(args);
