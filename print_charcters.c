@@ -1,5 +1,7 @@
+#ifndef PRINT_CHARACTERS_H
+#define PRINT_CHARACTERS_H
+
 #include "main.h"
-#include <stdarg.c>
 
 /**
  * print_char - prints a char
@@ -30,7 +32,7 @@ int print_string(va_list arg)
 	}
 	while (*s)
 	{
-		_putchar(s);
+		_putchar(*s);
 		count++;
 		s++;
 	}
@@ -43,7 +45,7 @@ int print_string(va_list arg)
  * @arg: unused
  * Return: the number of characters printed
  */
-print_percent(va_list arg)
+int print_percent(va_list arg)
 {
 	(void)arg;
 	_putchar('%');
@@ -65,13 +67,11 @@ int print_reversed(va_list arg)
 		s = "(null)";
 
 	for (i = 0; s[i]; i++)
-	{
 
-		for (i -= 1; i >= 0; i--)
-		{
-			_putchar(s[i]);
-			count++;
-		}
+	for (i -= 1; i >= 0; i--)
+	{
+		_putchar(s[i]);
+		count++;
 	}
 
 	return (count);
@@ -98,7 +98,7 @@ int print_non_printable(va_list arg)
 			_putchar('\\');
 			_putchar('x');
 			count += 2;
-			count += print_hex((va_list)&(*s), 1);
+			count += print_hex((va_list)s, 1);
 		}
 		else
 		{
@@ -111,3 +111,5 @@ int print_non_printable(va_list arg)
 
 	return (count);
 }
+
+#endif /* PRINT_CHARACTERS_H */
