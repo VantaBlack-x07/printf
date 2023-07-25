@@ -6,7 +6,7 @@
 int _printf(const char *format, ...);
 int _putchar(char c);
 int print_binary(va_list arg);
-int print_hex(va_list arg, int uppercase);
+int print_hex(va_list arg);
 int print_int(va_list arg);
 int print_unsigned_int(va_list arg);
 int print_octal(va_list arg);

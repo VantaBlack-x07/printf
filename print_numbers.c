@@ -1,3 +1,6 @@
+#include <stddef.h>
+#include "main.h"
+#include <stdarg.h>
 /**
  * print_int - prints an integer
  * @arg: the argument containing the integer to print
@@ -18,7 +21,7 @@ int print_int(va_list arg)
 	}
 	if (n / 10)
 	{
-		count += print_int(va_arg(arg, int));
+		count += print_int(arg);
 	}
 	_putchar(n % 10 * sign + '0');
 	count++;
@@ -29,20 +32,31 @@ int print_int(va_list arg)
 /**
  * print_unsigned_int - prints an unsigned integer
  * @arg: the argument containing the unsigned integer to print
- *
  * Return: the number of characters printed
  */
 int print_unsigned_int(va_list arg)
 {
 	unsigned int n = va_arg(arg, unsigned int);
+	char buffer[100];
 	int count = 0;
+	int i;
 
-	if (n / 10)
+	if (n == 0)
 	{
-		count += print_unsigned_int(va_arg(arg, unsigned int));
+		_putchar('0');
+		return (1);
 	}
-	_putchar(n % 10 + '0');
-	count++;
+
+	for (i = 0; n > 0; i++)
+	{
+		buffer[i] = (n % 10) + '0';
+		n /= 10;
+	}
+
+	count += i;
+
+	for (i -= 1; i >= 0; i--)
+		_putchar(buffer[i]);
 
 	return (count);
 }

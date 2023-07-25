@@ -1,8 +1,6 @@
-#ifndef PRINT_CHARACTERS_H
-#define PRINT_CHARACTERS_H
-
 #include "main.h"
-
+#include <stddef.h>
+#include <stdarg.h>
 /**
  * print_char - prints a char
  * @arg: argument containing the char to print
@@ -61,14 +59,13 @@ int print_reversed(va_list arg)
 {
 	char *s = va_arg(arg, char *);
 	int count = 0;
+	int length = 0;
 	int i;
 
-	if (s == NULL)
-		s = "(null)";
+	while (s[length] != '\0')
+		length++;
 
-	for (i = 0; s[i]; i++)
-
-	for (i -= 1; i >= 0; i--)
+	for (i = length - 1; i >= 0; i--)
 	{
 		_putchar(s[i]);
 		count++;
@@ -78,9 +75,9 @@ int print_reversed(va_list arg)
 }
 
 /**
- * print_non_printable - prints non-printable characters
- * with their ASCII code
- * @arg: the argument containing the string to print
+ * print_non_printable - prints a string, replacing non-printable characters
+ *					  with their ASCII codes in hexadecimal
+ * @arg: argument containing the string to print
  * Return: the number of characters printed
  */
 int print_non_printable(va_list arg)
@@ -89,7 +86,9 @@ int print_non_printable(va_list arg)
 	int count = 0;
 
 	if (s == NULL)
+	{
 		s = "(null)";
+	}
 
 	while (*s)
 	{
@@ -98,7 +97,7 @@ int print_non_printable(va_list arg)
 			_putchar('\\');
 			_putchar('x');
 			count += 2;
-			count += print_hex((va_list)s, 1);
+			count += print_hex(arg);
 		}
 		else
 		{
@@ -111,5 +110,3 @@ int print_non_printable(va_list arg)
 
 	return (count);
 }
-
-#endif /* PRINT_CHARACTERS_H */

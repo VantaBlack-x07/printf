@@ -14,7 +14,7 @@ int print_pointer(va_list arg)
 	_putchar('x');
 	count += 2;
 
-	count += print_hex((va_list)&p, 0);
+	count += print_hex(*(va_list *)&p);
 
 	return (count);
 }
