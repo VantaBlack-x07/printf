@@ -16,5 +16,6 @@ int print_percent(va_list arg);
 int print_pointer(va_list arg);
 int print_reversed(va_list arg);
 int print_non_printable(va_list arg);
+int print_decimal(va_list args);
 
 #endif /* MAIN_H */
