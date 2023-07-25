@@ -45,26 +45,10 @@ int print_string(va_list arg)
  */
 int print_percent(va_list arg)
 {
-(void)arg;
-
-	if (format == NULL)
-		return (-1);
-
-	if (*format == '%')
-	{
-		format++;
-		if (*format == '\0')
-			return (-1);
-		else if (*format != 's' && *format != 'c'
-		&& *format != ' ' && *format != '\\' && *format != '%')
-	{
-			_putchar('%');
-			_putchar(*format);
-			return (2);
-	}
-	}
+	(void)arg;
 
 	_putchar('%');
+	
 	return (1);
 }
 
